@@ -14,11 +14,7 @@ AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 
 # Checks for header files.
-AC_CHECK_HEADER(linux/aspeed-lpc-ctrl.h,[HAVE_UAPI_LINUX_LPC_CTRL_H=""],[HAVE_UAPI_LINUX_LPC_CTRL_H="-I linux/aspeed-lpc-ctrl.h"])
-AS_IF([test "$HAVE_UAPI_LINUX_LPC_CTRL_H" != ""],
-    AC_MSG_WARN([Could not find linux/aspeed-lpc-ctrl.h: Attempting to download locally for building from https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git/plain/include/uapi/linux/aspeed-lpc-ctrl.h?h=char-misc-next])
-    AC_SUBST([BT_BMC_DL],[`test ! -f linux/aspeed-lpc-ctrl.h && mkdir -p linux && wget --quiet https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git/plain/include/uapi/linux/aspeed-lpc-ctrl.h?h=char-misc-next -O linux/aspeed-lpc-ctrl.h`])
-)
+AC_CHECK_HEADER(linux/aspeed-lpc-ctrl.h,,AC_MSG_ERROR("Linux headers 4.11 or later required))
 
 # Checks for typedefs, structures, and compiler characteristics.
 AX_CXX_COMPILE_STDCXX_14([noext])
